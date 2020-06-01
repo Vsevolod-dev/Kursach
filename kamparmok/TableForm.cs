@@ -12,6 +12,7 @@ namespace kamparmok
 {
     public partial class TableForm : Form
     {
+        string file_name;
         public TableForm()
         {
             InitializeComponent();
@@ -47,11 +48,18 @@ namespace kamparmok
             //Чистим таблицу
             dataGridViewTable.Rows.Clear();
             dataGridViewTable.Columns.Clear();
+            for (int i = 0; i < 100; i++)
+            {
+                dataGridViewTable.Columns.Add("", "");
+                dataGridViewTable.Rows.Add();
+            }
+            //Открываем OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = ".CSV файлы (*.csv)|*.csv|All files(*.*)|*.*";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.Text = "Файл: " + openFileDialog.FileName.ToString();
+                file_name = openFileDialog.FileName;
+                this.Text = "Файл: " + file_name;
 
             }
             else
