@@ -37,11 +37,13 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTable = new System.Windows.Forms.DataGridView();
             this.calculate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelForIntervals = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridViewIntervals = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelAlpha = new System.Windows.Forms.Label();
+            this.checkedListBoxAlpha = new System.Windows.Forms.CheckedListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIntervals)).BeginInit();
@@ -115,7 +117,7 @@
             // 
             // calculate
             // 
-            this.calculate.Location = new System.Drawing.Point(781, 27);
+            this.calculate.Location = new System.Drawing.Point(784, 183);
             this.calculate.Name = "calculate";
             this.calculate.Size = new System.Drawing.Size(75, 23);
             this.calculate.TabIndex = 2;
@@ -123,18 +125,17 @@
             this.calculate.UseVisualStyleBackColor = true;
             this.calculate.Click += new System.EventHandler(this.Calculate_Button_Click);
             // 
-            // label1
+            // labelForIntervals
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(821, 232);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.labelForIntervals.AutoSize = true;
+            this.labelForIntervals.Location = new System.Drawing.Point(781, 467);
+            this.labelForIntervals.Name = "labelForIntervals";
+            this.labelForIntervals.Size = new System.Drawing.Size(0, 13);
+            this.labelForIntervals.TabIndex = 4;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(881, 43);
+            this.textBox1.Location = new System.Drawing.Point(784, 43);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 5;
@@ -142,11 +143,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(878, 27);
+            this.label2.Location = new System.Drawing.Point(781, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(172, 13);
+            this.label2.Size = new System.Drawing.Size(175, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Введите количество интервалов";
+            this.label2.Text = "Введите количество интервалов:";
             // 
             // dataGridViewIntervals
             // 
@@ -166,16 +167,42 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Интервалы и частоты";
             // 
+            // labelAlpha
+            // 
+            this.labelAlpha.AutoSize = true;
+            this.labelAlpha.Location = new System.Drawing.Point(781, 67);
+            this.labelAlpha.Name = "labelAlpha";
+            this.labelAlpha.Size = new System.Drawing.Size(189, 13);
+            this.labelAlpha.TabIndex = 9;
+            this.labelAlpha.Text = "Введите уровень значимости Alpha:";
+            // 
+            // checkedListBoxAlpha
+            // 
+            this.checkedListBoxAlpha.FormattingEnabled = true;
+            this.checkedListBoxAlpha.Items.AddRange(new object[] {
+            "0,01",
+            "0,025",
+            "0,05",
+            "0,095",
+            "0,0975",
+            "0,099"});
+            this.checkedListBoxAlpha.Location = new System.Drawing.Point(784, 83);
+            this.checkedListBoxAlpha.Name = "checkedListBoxAlpha";
+            this.checkedListBoxAlpha.Size = new System.Drawing.Size(61, 94);
+            this.checkedListBoxAlpha.TabIndex = 11;
+            // 
             // TableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1056, 782);
+            this.Controls.Add(this.checkedListBoxAlpha);
+            this.Controls.Add(this.labelAlpha);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridViewIntervals);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelForIntervals);
             this.Controls.Add(this.calculate);
             this.Controls.Add(this.dataGridViewTable);
             this.Controls.Add(this.menuStrip1);
@@ -202,10 +229,12 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridViewTable;
         private System.Windows.Forms.Button calculate;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelForIntervals;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridViewIntervals;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelAlpha;
+        private System.Windows.Forms.CheckedListBox checkedListBoxAlpha;
     }
 }
