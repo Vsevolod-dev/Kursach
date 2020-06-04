@@ -20,3 +20,12 @@ F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инст�
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.csproj.CoreCompileInputs.cache
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.exe
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.pdb
+D:\Kursach\kamparmok\bin\Debug\kamparmok.exe.config
+D:\Kursach\kamparmok\bin\Debug\kamparmok.exe
+D:\Kursach\kamparmok\bin\Debug\kamparmok.pdb
+D:\Kursach\kamparmok\obj\Debug\kamparmok.csprojAssemblyReference.cache
+D:\Kursach\kamparmok\obj\Debug\kamparmok.Properties.Resources.resources
+D:\Kursach\kamparmok\obj\Debug\kamparmok.csproj.GenerateResource.cache
+D:\Kursach\kamparmok\obj\Debug\kamparmok.exe
+D:\Kursach\kamparmok\obj\Debug\kamparmok.pdb
+D:\Kursach\kamparmok\obj\Debug\kamparmok.MainForm.resources
