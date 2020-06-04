@@ -16,7 +16,7 @@ namespace kamparmok
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MDIparent());
+            Application.Run(new MainForm());
         }
     }
 }
