@@ -15,6 +15,7 @@ namespace kamparmok
 {
     public partial class MainForm : Form
     {
+        const char separator = ';'; // разделитель в csv файле. Меняешь здесь добавь в possible_char
         private string file_name;// имя файла
         string[] all_rows; // все строки в файле
         int count_all_rows; // количество строк
@@ -43,7 +44,20 @@ namespace kamparmok
         {
             InitializeComponent();
         }
-
+        // Очистка таблиц
+        private void clear_table(bool clear_result_table = true, bool clear_input_table = true)
+        {
+            if (clear_input_table)
+            {
+                fInput_table.Rows.Clear();
+                fInput_table.Columns.Clear();
+            }
+            if (clear_result_table)
+            {
+                fResult_table.Rows.Clear();
+                fResult_table.Columns.Clear();
+            }
+        }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -53,10 +67,7 @@ namespace kamparmok
         {
             try
             {
-                // Чистим таблицу
-                fInput_table.Rows.Clear();
-                fInput_table.Columns.Clear();
-
+                clear_table();
                 // диалог открытия файла
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = ".CSV файлы (*.csv)|*.csv|All files(*.*)|*.*";
@@ -71,9 +82,16 @@ namespace kamparmok
                     StreamReader StreamReader = new StreamReader(file);
                     string full_text = StreamReader.ReadToEnd();
 
+
                     Regex reg = new Regex(";"); //разделитель между ячейками (регулярные выражения)
                     MatchCollection count = reg.Matches(full_text); //поиск reg(;) в full_text и записывает их кол-во в переменную
                     int columnReg = Convert.ToInt32(count.Count.ToString()); //перевод count в int'овый вариант
+                    /*
+                    if (all_rows[0].LastIndexOf(separator) == all_rows[0].Length)
+                    {
+                        columnReg--;
+                    }
+                    */
 
                     all_rows = File.ReadAllLines(file_name);
                     count_all_rows = all_rows.Length;
@@ -90,19 +108,57 @@ namespace kamparmok
                     //создание строк ( с разделителем???? ) цикл работает 5 раз? /*Вроде все правильно работает*/
                     for (int i = 0; i < count_all_rows; ++i)
                     {
-                        fInput_table.Rows.Add(all_rows[i].Split(';'));
+                        if (check_row(ref all_rows[i]))
+                        {
+                            fInput_table.Rows.Add(all_rows[i].Split(separator));
+                        }
                     }
                     StreamReader.Close();
                 }
                 openFileDialog.Dispose();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка при открытии файла");
+                MessageBox.Show("Произошла ошибка при открытии файла"+ ex.Message);
             }
         }
+        // Функция проверки строки на лишние символы
+        private bool check_row( ref string row)
+        {
+            // Допустимые символы в файле
+            char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.',';' };
+            // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
+            row = row.Replace(",", ".");
+            row = row.Replace(" ", "");
+
+            for (int i = 0; i < row.Length; i++)
+            {
+                bool find_symbol = false;
+                foreach (char symbol in possible_char)
+                {
+                    if (row[i] == symbol)
+                    {
+                        // Для разделителя нужно проверить наличие идущих двух подряд ; и если ; стоит на первом месте
+                        if (row[i] == separator)
+                        {
+                            if ((i != row.Length - 1) && (row[i + 1] == separator) || i == 0)
+                            {
+                                return false;
+                            }
+                        }
+                        find_symbol = true;
+                        break;
+                    }
+                }
+                if (!find_symbol)
+                    return false;
+            }
+            return true;
+        }
+            
         void Calculate_main()
         {
+            clear_table( true, false );
             max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
             min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
 
@@ -264,9 +320,9 @@ namespace kamparmok
                     labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка при рассчетах");
+                MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
             }
         }
     }

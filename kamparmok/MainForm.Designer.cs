@@ -35,6 +35,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
             this.fResult_table = new System.Windows.Forms.DataGridView();
+            this.buttonChart = new System.Windows.Forms.Button();
             this.chartIntervals = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonUniform = new System.Windows.Forms.Button();
             this.labelForIntervals = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
-            this.buttonChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,6 +125,16 @@
             this.fResult_table.Name = "fResult_table";
             this.fResult_table.Size = new System.Drawing.Size(321, 218);
             this.fResult_table.TabIndex = 0;
+            // 
+            // buttonChart
+            // 
+            this.buttonChart.Location = new System.Drawing.Point(134, 78);
+            this.buttonChart.Name = "buttonChart";
+            this.buttonChart.Size = new System.Drawing.Size(114, 51);
+            this.buttonChart.TabIndex = 16;
+            this.buttonChart.Text = "Построить график";
+            this.buttonChart.UseVisualStyleBackColor = true;
+
             // 
             // chartIntervals
             // 
@@ -205,7 +215,7 @@
             // 
             this.fCalculation_button.Location = new System.Drawing.Point(3, 2);
             this.fCalculation_button.Name = "fCalculation_button";
-            this.fCalculation_button.Size = new System.Drawing.Size(141, 23);
+            this.fCalculation_button.Size = new System.Drawing.Size(141, 30);
             this.fCalculation_button.TabIndex = 0;
             this.fCalculation_button.Text = "Рассчитать";
             this.fCalculation_button.UseVisualStyleBackColor = true;
@@ -269,16 +279,6 @@
             this.fMain_menu.Size = new System.Drawing.Size(79, 436);
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
-            // 
-            // buttonChart
-            // 
-            this.buttonChart.Location = new System.Drawing.Point(134, 78);
-            this.buttonChart.Name = "buttonChart";
-            this.buttonChart.Size = new System.Drawing.Size(114, 51);
-            this.buttonChart.TabIndex = 16;
-            this.buttonChart.Text = "Построить график";
-            this.buttonChart.UseVisualStyleBackColor = true;
-            this.buttonChart.Click += new System.EventHandler(this.buttonChart_Click);
             // 
             // MainForm
             // 
