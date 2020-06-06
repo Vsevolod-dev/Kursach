@@ -19,6 +19,26 @@ namespace kamparmok
         string[] all_rows; // все строки в файле
         int count_all_rows; // количество строк
         int count_all_collumn; // количество столбцов
+        //Таблица Пирсона
+        double[,] PirsonTable = new double[6, 10] { { 6.6, 9.2, 11.3, 13.3, 15.1, 16.8, 18.5, 20.1, 21.7, 23.2 }, //0.01
+                                                        { 5.0, 7.4, 9.4, 11.1, 12.8, 14.4, 16.0, 17.5, 19.0, 20.5 }, //0.025
+                                                        { 3.8, 6.0, 7.8, 9.5, 11.1, 12.6, 14.1, 15.5, 16.9, 18.3 }, //0.05
+                                                        { 0.0039, 0.103, 0.352, 0.711, 1.15, 1.64, 2.17, 2.73, 3.33, 3.94 }, //0.095 
+                                                        { 0.00098, 0.051, 0.216, 0.484, 0.831, 1.24, 1.69, 2.18, 2.70, 3.25 }, //0.0975
+                                                        { 0.00016, 0.020, 0.115, 0.297, 0.554, 0.872, 1.24, 1.65, 2.09, 2.56 } }; //0.099
+        double min, max; //минимум и максимум
+        double rangeOfVariation; //размах вариации
+        int numberOfIntervals; //количество интервалов
+        double step; //длина интервала
+        double leftBorder, rightBorder; //границы интервалов
+        double middleValue = 0; //среднее значение
+        int frequencyCount; //счётчик частот
+        int frequencySum = 0; //сумма частот
+        double sumHelp = 0;
+        double sumTheorFrequencies = 0; //сумма теоретических частот
+        double Xemp = 0; //Х^2 эмпирический
+        double Xtheor = 0; //Х^2 теоретический
+
         public MainForm()
         {
             InitializeComponent();
@@ -76,9 +96,74 @@ namespace kamparmok
                 }
                 openFileDialog.Dispose();
             }
-            catch( Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Произошла ошибка при открытии файла");
+            }
+        }
+        void Calculate_main()
+        {
+            max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
+            min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
+
+            for (int i = 0; i < count_all_rows; ++i) //поиск мниимального и максимального значения
+            {
+                for (int j = 0; j < count_all_collumn; ++j)
+                {
+                    if (Convert.ToDouble(fInput_table[i, j].Value) >= max) //максимум
+                    {
+                        max = Convert.ToDouble(fInput_table[i, j].Value);
+                    }
+                    if (Convert.ToDouble(fInput_table[i, j].Value) <= min) //минимум
+                    {
+                        min = Convert.ToDouble(fInput_table[i, j].Value);
+                    }
+                }
+            }
+
+            rangeOfVariation = max - min; //размах вариации
+            numberOfIntervals = Convert.ToInt32(fCount_interval.Text); //количество интервалов
+            step = rangeOfVariation / numberOfIntervals; //длина интервала
+
+            fResult_table.Columns.Add("", "Интервал"); //левый интервал [0, i]
+            fResult_table.Columns.Add("", "Интервал"); //правый интервал [1, i]
+            for (int i = 0; i < numberOfIntervals; ++i) //рассчёт интервалов
+            {
+                fResult_table.Rows.Add(min, Math.Round(min + step, 2));
+                min = Convert.ToDouble(fResult_table[1, i].Value);
+            }
+        }
+
+        private void buttonUniform_Click_1(object sender, EventArgs e)
+        {
+            Calculate_main();
+            fResult_table.Columns.Add("", "ss");
+            fResult_table.Columns.Add("", "sss");
+            fResult_table.Columns.Add("", "ssss");
+            double P = 1 / Convert.ToDouble(numberOfIntervals);
+            for (int i = 0; i < numberOfIntervals; ++i)
+            {
+                fResult_table[2, i].Value = Math.Round(P, 4);
+                fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * 100;
+                fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value))
+                * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
+            }
+            for (int i = 0; i < numberOfIntervals; ++i)
+            {
+                Xemp += Xemp + Convert.ToDouble(fResult_table[4, i].Value);
+            }
+            double Xtheor = 0;
+            int indexAlpha = checkedListBoxAlpha.SelectedIndex; //берёт индекс последнего нажатого варианта из листа
+            int degressFreedom = numberOfIntervals - 0/*количество расчетов, у нас их нет*/ - 1/*просто -1*/; //число степеней свободы
+            Xtheor = PirsonTable[indexAlpha, degressFreedom];
+            labelForIntervals.Text = "\n\n\nemp " + Xemp + "theor " + Xtheor;
+            if (Xemp <= Xtheor)
+            {
+                labelForIntervals.Text += "\nВыборка подчиняется нормальному\n закону распределения!";
+            }
+            else
+            {
+                labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
             }
         }
 
@@ -86,49 +171,13 @@ namespace kamparmok
         {
             try
             {
-                double max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
-                double min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
-
-                for (int i = 0; i < count_all_rows; ++i) //поиск мниимального и максимального значения
-                {
-                    for (int j = 0; j < count_all_collumn; ++j)
-                    {
-                        if (Convert.ToDouble(fInput_table[i, j].Value) >= max) //максимум
-                        {
-                            max = Convert.ToDouble(fInput_table[i, j].Value);
-                        }
-                        if (Convert.ToDouble(fInput_table[i, j].Value) <= min) //минимум
-                        {
-                            min = Convert.ToDouble(fInput_table[i, j].Value);
-                        }
-                    }
-                }
-
-                double rangeOfVariation = max - min; //размах вариации
-
-                int numberOfIntervals = Convert.ToInt32(fCount_interval.Text); //количество интервалов
-
-                double step = rangeOfVariation / numberOfIntervals; //длина интервала
-
-                fResult_table.Columns.Add("", "Интервал"); //левый интервал [0, i]
-                fResult_table.Columns.Add("", "Интервал"); //правый интервал [1, i]
+                Calculate_main();
                 fResult_table.Columns.Add("", "Частоты"); //третий столбец для частот [2, i]
                 fResult_table.Columns.Add("", "Середины интервалов"); //четвертый столбец для середин интервалов [3, i]
-
-                for (int i = 0; i < numberOfIntervals; ++i) //рассчёт интервалов
-                {
-                    fResult_table.Rows.Add(min, Math.Round(min + step, 2));
-                    min = Convert.ToDouble(fResult_table[1, i].Value);
-                }
-
-                double leftBorder, rightBorder; //границы интервалов
-                double middleValue = 0; //среднее значение
-                int frequencyCount; //счётчик частот
-                int frequencySum = 0; //сумма частот
                 double[] normDistr = new double[numberOfIntervals]; //нормальное распределение
                 double[] middleIntervals = new double[numberOfIntervals]; //середины интервалов
                 double[] frequency = new double[numberOfIntervals]; //частоты
-                double sumHelp = 0;
+
 
                 for (int i = 0; i < numberOfIntervals; ++i) //рассчёт частот
                 {
@@ -163,16 +212,7 @@ namespace kamparmok
                     sumHelp += Convert.ToDouble(fResult_table[4, i].Value); //вспомогательная для числителя
                 }
                 double[] theorFrequencies = new double[numberOfIntervals]; //теоретические частоты
-                double sumTheorFrequencies = 0; //сумма теоретических частот
-                double Xemp = 0; //Х^2 эмпирический            1   2     3     4     5     6     7     8     9     10
-                double[,] PirsonTable = new double[6, 10] { { 6.6, 9.2, 11.3, 13.3, 15.1, 16.8, 18.5, 20.1, 21.7, 23.2 }, //0.01
-                                                        { 5.0, 7.4, 9.4, 11.1, 12.8, 14.4, 16.0, 17.5, 19.0, 20.5 }, //0.025
-                                                        { 3.8, 6.0, 7.8, 9.5, 11.1, 12.6, 14.1, 15.5, 16.9, 18.3 }, //0.05
-                                                        { 0.0039, 0.103, 0.352, 0.711, 1.15, 1.64, 2.17, 2.73, 3.33, 3.94 }, //0.095 
-                                                        { 0.00098, 0.051, 0.216, 0.484, 0.831, 1.24, 1.69, 2.18, 2.70, 3.25 }, //0.0975
-                                                        { 0.00016, 0.020, 0.115, 0.297, 0.554, 0.872, 1.24, 1.65, 2.09, 2.56 } }; //0.099
 
-                double Xtheor = 0; //Х^2 теоретический
                 double stdDev = Math.Sqrt(sumHelp / (count_all_rows * count_all_collumn)); //стандартное отклонение
                 fResult_table.Columns.Add("", "Частоты теоретические"); //создание столбца нормальное распределение
                 for (int i = 0; i < numberOfIntervals; ++i) //расчет норм расп
@@ -206,7 +246,7 @@ namespace kamparmok
                     labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
                 }
             }
-            catch( Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Произошла ошибка при рассчетах");
             }

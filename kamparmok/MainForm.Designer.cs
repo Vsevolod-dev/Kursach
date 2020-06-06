@@ -32,6 +32,11 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
             this.fResult_table = new System.Windows.Forms.DataGridView();
+            this.labelForIntervals = new System.Windows.Forms.Label();
+            this.checkedListBoxAlpha = new System.Windows.Forms.CheckedListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.fCount_interval = new System.Windows.Forms.TextBox();
             this.fCalculation_button = new System.Windows.Forms.Button();
             this.fFile_tool_strip = new System.Windows.Forms.ToolStripMenuItem();
             this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,11 +45,7 @@
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
-            this.fCount_interval = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.checkedListBoxAlpha = new System.Windows.Forms.CheckedListBox();
-            this.labelForIntervals = new System.Windows.Forms.Label();
+            this.buttonUniform = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -61,7 +62,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(78, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(79, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -71,13 +72,14 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.buttonUniform);
             this.splitContainer1.Panel2.Controls.Add(this.labelForIntervals);
             this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxAlpha);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.fCount_interval);
             this.splitContainer1.Panel2.Controls.Add(this.fCalculation_button);
-            this.splitContainer1.Size = new System.Drawing.Size(629, 450);
+            this.splitContainer1.Size = new System.Drawing.Size(628, 450);
             this.splitContainer1.SplitterDistance = 225;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -94,8 +96,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.fResult_table);
-            this.splitContainer2.Size = new System.Drawing.Size(629, 225);
-            this.splitContainer2.SplitterDistance = 303;
+            this.splitContainer2.Size = new System.Drawing.Size(628, 225);
+            this.splitContainer2.SplitterDistance = 302;
             this.splitContainer2.TabIndex = 1;
             // 
             // fInput_table
@@ -104,7 +106,7 @@
             this.fInput_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fInput_table.Location = new System.Drawing.Point(0, 0);
             this.fInput_table.Name = "fInput_table";
-            this.fInput_table.Size = new System.Drawing.Size(303, 225);
+            this.fInput_table.Size = new System.Drawing.Size(302, 225);
             this.fInput_table.TabIndex = 0;
             // 
             // fResult_table
@@ -115,6 +117,54 @@
             this.fResult_table.Name = "fResult_table";
             this.fResult_table.Size = new System.Drawing.Size(322, 225);
             this.fResult_table.TabIndex = 0;
+            // 
+            // labelForIntervals
+            // 
+            this.labelForIntervals.AutoSize = true;
+            this.labelForIntervals.Location = new System.Drawing.Point(427, 12);
+            this.labelForIntervals.Name = "labelForIntervals";
+            this.labelForIntervals.Size = new System.Drawing.Size(0, 20);
+            this.labelForIntervals.TabIndex = 13;
+            // 
+            // checkedListBoxAlpha
+            // 
+            this.checkedListBoxAlpha.FormattingEnabled = true;
+            this.checkedListBoxAlpha.Items.AddRange(new object[] {
+            "0,01",
+            "0,025",
+            "0,05",
+            "0,095",
+            "0,0975",
+            "0,099"});
+            this.checkedListBoxAlpha.Location = new System.Drawing.Point(255, 29);
+            this.checkedListBoxAlpha.Name = "checkedListBoxAlpha";
+            this.checkedListBoxAlpha.Size = new System.Drawing.Size(99, 130);
+            this.checkedListBoxAlpha.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(251, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Уровень значимости ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(29, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(195, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Количество интервалов";
+            // 
+            // fCount_interval
+            // 
+            this.fCount_interval.Location = new System.Drawing.Point(33, 51);
+            this.fCount_interval.Name = "fCount_interval";
+            this.fCount_interval.Size = new System.Drawing.Size(184, 26);
+            this.fCount_interval.TabIndex = 1;
             // 
             // fCalculation_button
             // 
@@ -133,114 +183,76 @@
             this.fOpen_File,
             this.сохранитьToolStripMenuItem,
             this.сохранитьКакToolStripMenuItem});
-            this.fFile_tool_strip.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fFile_tool_strip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fFile_tool_strip.Name = "fFile_tool_strip";
-            this.fFile_tool_strip.Size = new System.Drawing.Size(59, 23);
+            this.fFile_tool_strip.Size = new System.Drawing.Size(60, 24);
             this.fFile_tool_strip.Text = "Файл";
             // 
             // новыйToolStripMenuItem
             // 
             this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
+            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.новыйToolStripMenuItem.Text = "Новый";
             // 
             // fOpen_File
             // 
             this.fOpen_File.Name = "fOpen_File";
-            this.fOpen_File.Size = new System.Drawing.Size(193, 24);
+            this.fOpen_File.Size = new System.Drawing.Size(188, 24);
             this.fOpen_File.Text = "Открыть";
             this.fOpen_File.Click += new System.EventHandler(this.fOpen_File_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             // 
             // сохранитьКакToolStripMenuItem
             // 
             this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
+            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.сохранитьКакToolStripMenuItem.Text = "Сохранить как";
             // 
             // выходToolStripMenuItem
             // 
-            this.выходToolStripMenuItem.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.выходToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(59, 23);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(60, 24);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // fMain_menu
             // 
             this.fMain_menu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.fMain_menu.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.fMain_menu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fMain_menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fFile_tool_strip,
             this.выходToolStripMenuItem});
             this.fMain_menu.Location = new System.Drawing.Point(0, 0);
             this.fMain_menu.Name = "fMain_menu";
             this.fMain_menu.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.fMain_menu.Size = new System.Drawing.Size(78, 450);
+            this.fMain_menu.Size = new System.Drawing.Size(79, 450);
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
             // 
-            // fCount_interval
+            // buttonUniform
             // 
-            this.fCount_interval.Location = new System.Drawing.Point(33, 51);
-            this.fCount_interval.Name = "fCount_interval";
-            this.fCount_interval.Size = new System.Drawing.Size(184, 27);
-            this.fCount_interval.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(188, 19);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Количество интервалов";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 19);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Уровень значимости ";
-            // 
-            // checkedListBoxAlpha
-            // 
-            this.checkedListBoxAlpha.FormattingEnabled = true;
-            this.checkedListBoxAlpha.Items.AddRange(new object[] {
-            "0,01",
-            "0,025",
-            "0,05",
-            "0,095",
-            "0,0975",
-            "0,099"});
-            this.checkedListBoxAlpha.Location = new System.Drawing.Point(255, 29);
-            this.checkedListBoxAlpha.Name = "checkedListBoxAlpha";
-            this.checkedListBoxAlpha.Size = new System.Drawing.Size(99, 136);
-            this.checkedListBoxAlpha.TabIndex = 12;
-            // 
-            // labelForIntervals
-            // 
-            this.labelForIntervals.AutoSize = true;
-            this.labelForIntervals.Location = new System.Drawing.Point(427, 12);
-            this.labelForIntervals.Name = "labelForIntervals";
-            this.labelForIntervals.Size = new System.Drawing.Size(0, 19);
-            this.labelForIntervals.TabIndex = 13;
+            this.buttonUniform.Location = new System.Drawing.Point(445, 8);
+            this.buttonUniform.Name = "buttonUniform";
+            this.buttonUniform.Size = new System.Drawing.Size(125, 41);
+            this.buttonUniform.TabIndex = 14;
+            this.buttonUniform.Text = "Равномерное";
+            this.buttonUniform.UseVisualStyleBackColor = true;
+            this.buttonUniform.Click += new System.EventHandler(this.buttonUniform_Click_1);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 450);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.fMain_menu);
-            this.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.fMain_menu;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -283,5 +295,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckedListBox checkedListBoxAlpha;
         private System.Windows.Forms.Label labelForIntervals;
+        private System.Windows.Forms.Button buttonUniform;
     }
 }
