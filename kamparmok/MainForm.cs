@@ -134,6 +134,24 @@ namespace kamparmok
             }
         }
 
+        private void chartIntervals_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonChart_Click(object sender, EventArgs e)
+        {
+            Calculate_main();
+            if (fResult_table[0,0].Value != null)
+            {
+                for (int i = 0; i < numberOfIntervals; ++i)
+                {
+                    chartIntervals.Series[0].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                    //chartIntervals.Series[1].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                }
+            }
+        }
+
         private void buttonUniform_Click_1(object sender, EventArgs e)
         {
             Calculate_main();
