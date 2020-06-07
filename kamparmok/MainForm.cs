@@ -47,16 +47,21 @@ namespace kamparmok
         // Очистка таблиц
         private void clear_table(bool clear_result_table = true, bool clear_input_table = true)
         {
-            if (clear_input_table)
+            try
             {
-                fInput_table.Rows.Clear();
-                fInput_table.Columns.Clear();
+                if (clear_input_table)
+                {
+                    fInput_table.Rows.Clear();
+                    fInput_table.Columns.Clear();
+                }
+                if (clear_result_table)
+                {
+                    fResult_table.Rows.Clear();
+                    fResult_table.Columns.Clear();
+                }
             }
-            if (clear_result_table)
-            {
-                fResult_table.Rows.Clear();
-                fResult_table.Columns.Clear();
-            }
+            catch ( Exception )
+            { }
         }
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -67,6 +72,7 @@ namespace kamparmok
         {
             try
             {
+                
                 clear_table();
                 // диалог открытия файла
                 OpenFileDialog openFileDialog = new OpenFileDialog();
