@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
@@ -51,6 +51,7 @@
             this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
+            this.fBinominal_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,6 +79,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.fBinominal_button);
             this.splitContainer1.Panel2.Controls.Add(this.buttonChart);
             this.splitContainer1.Panel2.Controls.Add(this.chartIntervals);
             this.splitContainer1.Panel2.Controls.Add(this.buttonUniform);
@@ -87,8 +89,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.fCount_interval);
             this.splitContainer1.Panel2.Controls.Add(this.fCalculation_button);
-            this.splitContainer1.Size = new System.Drawing.Size(626, 436);
-            this.splitContainer1.SplitterDistance = 218;
+            this.splitContainer1.Size = new System.Drawing.Size(684, 482);
+            this.splitContainer1.SplitterDistance = 241;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -104,8 +106,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.fResult_table);
-            this.splitContainer2.Size = new System.Drawing.Size(626, 218);
-            this.splitContainer2.SplitterDistance = 301;
+            this.splitContainer2.Size = new System.Drawing.Size(684, 241);
+            this.splitContainer2.SplitterDistance = 328;
             this.splitContainer2.TabIndex = 1;
             // 
             // fInput_table
@@ -114,7 +116,7 @@
             this.fInput_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fInput_table.Location = new System.Drawing.Point(0, 0);
             this.fInput_table.Name = "fInput_table";
-            this.fInput_table.Size = new System.Drawing.Size(301, 218);
+            this.fInput_table.Size = new System.Drawing.Size(328, 241);
             this.fInput_table.TabIndex = 0;
             // 
             // fResult_table
@@ -123,7 +125,7 @@
             this.fResult_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fResult_table.Location = new System.Drawing.Point(0, 0);
             this.fResult_table.Name = "fResult_table";
-            this.fResult_table.Size = new System.Drawing.Size(321, 218);
+            this.fResult_table.Size = new System.Drawing.Size(352, 241);
             this.fResult_table.TabIndex = 0;
             // 
             // buttonChart
@@ -134,20 +136,20 @@
             this.buttonChart.TabIndex = 16;
             this.buttonChart.Text = "Построить график";
             this.buttonChart.UseVisualStyleBackColor = true;
-
+            this.buttonChart.Click += new System.EventHandler(this.buttonChart_Click_1);
             // 
             // chartIntervals
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartIntervals.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartIntervals.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chartIntervals.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartIntervals.Legends.Add(legend2);
             this.chartIntervals.Location = new System.Drawing.Point(3, 130);
             this.chartIntervals.Name = "chartIntervals";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartIntervals.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartIntervals.Series.Add(series2);
             this.chartIntervals.Size = new System.Drawing.Size(245, 216);
             this.chartIntervals.TabIndex = 15;
             this.chartIntervals.Text = "chart1";
@@ -276,15 +278,25 @@
             this.fMain_menu.Location = new System.Drawing.Point(0, 0);
             this.fMain_menu.Name = "fMain_menu";
             this.fMain_menu.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.fMain_menu.Size = new System.Drawing.Size(79, 436);
+            this.fMain_menu.Size = new System.Drawing.Size(79, 482);
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
+            // 
+            // fBinominal_button
+            // 
+            this.fBinominal_button.Location = new System.Drawing.Point(151, 2);
+            this.fBinominal_button.Name = "fBinominal_button";
+            this.fBinominal_button.Size = new System.Drawing.Size(97, 30);
+            this.fBinominal_button.TabIndex = 17;
+            this.fBinominal_button.Text = "Биноминальное";
+            this.fBinominal_button.UseVisualStyleBackColor = true;
+            this.fBinominal_button.Click += new System.EventHandler(this.fBinominal_button_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 436);
+            this.ClientSize = new System.Drawing.Size(763, 482);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.fMain_menu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -334,5 +346,6 @@
         private System.Windows.Forms.Button buttonUniform;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartIntervals;
         private System.Windows.Forms.Button buttonChart;
+        private System.Windows.Forms.Button fBinominal_button;
     }
 }

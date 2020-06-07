@@ -10,6 +10,7 @@ using System.Windows.Forms;
 //inlcude library
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Numerics;
 
 namespace kamparmok
 {
@@ -44,8 +45,33 @@ namespace kamparmok
         {
             InitializeComponent();
         }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////ФУНКЦИИ////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        //функция для подсчета факториала
+        BigInteger factorial(int value) 
+        {
+            BigInteger result = new BigInteger(1);
+            if (value == 1 || value == 0) return result;
+            for (int i = 1; i < value; i++)
+            {
+                result += result * i;
+            }
+            return result;
+        }
+
+        //критери Пирсона
+        double Pirson(int k) 
+        {
+            double[] t01 = new double[] {2.706,4.605,6.251,7.779,9.236,10.645,12.017,13.362,14.684,15.987,17.275,18.549,19.812,21.064,22.307,23.542,24.769,25.989,27.204,
+                                            28.412,29.615,30.813,32.007,33.196,34.382,35.563,36.741,37.916,39.087,40.256 };
+            return t01[k - 1];
+        }
+
         // Очистка таблиц
-        private void clear_table(bool clear_result_table = true, bool clear_input_table = true)
+        private void clear_table(bool clear_result_table = true, bool clear_input_table = true) 
         {
             if (clear_input_table)
             {
@@ -58,75 +84,12 @@ namespace kamparmok
                 fResult_table.Columns.Clear();
             }
         }
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
-        private void fOpen_File_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                clear_table();
-                // диалог открытия файла
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = ".CSV файлы (*.csv)|*.csv|All files(*.*)|*.*";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    file_name = openFileDialog.FileName;
-                    this.Text = "Файл: " + file_name;
-
-                    FileStream file = new FileStream(file_name, FileMode.OpenOrCreate, FileAccess.Read); //переменная для чтения и записи
-
-                    StreamReader StreamReader = new StreamReader(file);
-                    string full_text = StreamReader.ReadToEnd();
-
-
-                    Regex reg = new Regex(";"); //разделитель между ячейками (регулярные выражения)
-                    MatchCollection count = reg.Matches(full_text); //поиск reg(;) в full_text и записывает их кол-во в переменную
-                    int columnReg = Convert.ToInt32(count.Count.ToString()); //перевод count в int'овый вариант
-                    /*
-                    if (all_rows[0].LastIndexOf(separator) == all_rows[0].Length)
-                    {
-                        columnReg--;
-                    }
-                    */
-
-                    all_rows = File.ReadAllLines(file_name);
-                    count_all_rows = all_rows.Length;
-                    count_all_collumn = columnReg / count_all_rows + 1;
-
-                    // Создание стобцов
-                    for (int i = 0; i < count_all_collumn; ++i)
-                    {
-                        fInput_table.Columns.Add("", "");
-                    }
-
-                    //когда мы начинаем заполнять файл, это происходит построчно
-                    // Заполнение строк
-                    //создание строк ( с разделителем???? ) цикл работает 5 раз? /*Вроде все правильно работает*/
-                    for (int i = 0; i < count_all_rows; ++i)
-                    {
-                        if (check_row(ref all_rows[i]))
-                        {
-                            fInput_table.Rows.Add(all_rows[i].Split(separator));
-                        }
-                    }
-                    StreamReader.Close();
-                }
-                openFileDialog.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Произошла ошибка при открытии файла"+ ex.Message);
-            }
-        }
         // Функция проверки строки на лишние символы
-        private bool check_row( ref string row)
+        private bool check_row(ref string row)
         {
             // Допустимые символы в файле
-            char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.',';' };
+            char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', ';' };
             // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
             row = row.Replace(",", ".");
             row = row.Replace(" ", "");
@@ -155,10 +118,11 @@ namespace kamparmok
             }
             return true;
         }
-            
+
+        //функция для поиска различных вспомогательных данных
         void Calculate_main()
         {
-            clear_table( true, false );
+            clear_table(true, false);
             max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
             min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
 
@@ -190,47 +154,114 @@ namespace kamparmok
             }
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////КОНЕЦ ФУНКЦИЙ//////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void fOpen_File_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clear_table();
+                // диалог открытия файла
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = ".CSV файлы (*.csv)|*.csv|All files(*.*)|*.*";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    file_name = openFileDialog.FileName;
+                    this.Text = "Файл: " + file_name;
+
+                    FileStream file = new FileStream(file_name, FileMode.OpenOrCreate, FileAccess.Read); //переменная для чтения и записи
+
+                    StreamReader StreamReader = new StreamReader(file);
+                    string full_text = StreamReader.ReadToEnd();
+
+
+                    Regex reg = new Regex(";"); //разделитель между ячейками (регулярные выражения)
+                    MatchCollection count = reg.Matches(full_text); //поиск reg(;) в full_text и записывает их кол-во в переменную
+                    int columnReg = Convert.ToInt32(count.Count.ToString()); //перевод count в int'овый вариант
+
+                    all_rows = File.ReadAllLines(file_name);
+                    count_all_rows = all_rows.Length;
+                    count_all_collumn = columnReg / count_all_rows + 1;
+
+                    // Создание стобцов
+                    for (int i = 0; i < count_all_collumn; ++i)
+                    {
+                        fInput_table.Columns.Add("", "");
+                    }
+
+                    //построчное создание и заполнение строк с разделителями
+                    for (int i = 0; i < count_all_rows; ++i)
+                    {
+                        if (check_row(ref all_rows[i]))
+                        {
+                            fInput_table.Rows.Add(all_rows[i].Split(separator));
+                        }
+                    }
+                    StreamReader.Close();
+                }
+                openFileDialog.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при открытии файла"+ ex.Message);
+            }
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void chartIntervals_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonChart_Click(object sender, EventArgs e)
+        //биноминальное распределение
+        private void fBinominal_button_Click(object sender, EventArgs e)
         {
-            Calculate_main();
-            if (fResult_table[0,0].Value != null)
+            double M = 0;
+            int CountOfCell = count_all_collumn * count_all_rows;
+
+            for (int i = 0; i < count_all_rows; ++i) 
             {
-                for (int i = 0; i < numberOfIntervals; ++i)
+                for (int j = 0; j < count_all_collumn; ++j)
                 {
-                    chartIntervals.Series[0].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
-                    //chartIntervals.Series[1].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                    M = M + Convert.ToInt32(fInput_table[i, j].Value);
                 }
             }
-        }
 
-        private void buttonUniform_Click_1(object sender, EventArgs e)
-        {
-            Calculate_main();
-            fResult_table.Columns.Add("", "ss");
-            fResult_table.Columns.Add("", "sss");
-            fResult_table.Columns.Add("", "ssss");
-            double P = 1 / Convert.ToDouble(numberOfIntervals);
-            for (int i = 0; i < numberOfIntervals; ++i)
+            M = Math.Round(M / CountOfCell, 5);
+            double p = M / CountOfCell;
+            double q = 1 - p;
+            double P = 0;
+            BigInteger P1 = 0;
+
+            for (int i = 0; i < numberOfIntervals; i++)
             {
-                fResult_table[2, i].Value = Math.Round(P, 4);
-                fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * 100;
-                fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value))
-                * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
+                P1 = factorial(CountOfCell) / (factorial(i) * factorial(CountOfCell - i));
+                P = (double)(P1) * Math.Pow(p, i) * Math.Pow(q, CountOfCell - i);
+                fResult_table[3, i].Value = Math.Round(P, 4);
             }
-            for (int i = 0; i < numberOfIntervals; ++i)
+
+            for (int i = 0; i < numberOfIntervals; i++)
             {
-                Xemp += Xemp + Convert.ToDouble(fResult_table[4, i].Value);
+                fResult_table[4, i].Value = Convert.ToDouble(fResult_table[3, i].Value) * CountOfCell;
+                fResult_table[5, i].Value = Math.Round((Convert.ToDouble(fResult_table[2, i].Value) - Convert.ToDouble(fResult_table[4, i].Value)) * (Convert.ToDouble(fResult_table[2, i].Value) - Convert.ToDouble(fResult_table[4, i].Value)) / Convert.ToDouble(fResult_table[4, i].Value), 4);
             }
-            double Xtheor = 0;
-            int indexAlpha = checkedListBoxAlpha.SelectedIndex; //берёт индекс последнего нажатого варианта из листа
-            int degressFreedom = numberOfIntervals - 0/*количество расчетов, у нас их нет*/ - 1/*просто -1*/; //число степеней свободы
-            Xtheor = PirsonTable[indexAlpha, degressFreedom];
-            labelForIntervals.Text = "\n\n\nemp " + Xemp + "theor " + Xtheor;
+
+            for (int i = 0; i < numberOfIntervals; i++)
+            {
+                Xemp = Xemp + Convert.ToDouble(fResult_table[5, i].Value);
+            }
+
+            label1.Text = Xemp.ToString();
+            int k = numberOfIntervals - 2 - 1;
+            double Xtheor = Pirson(k);
+
             if (Xemp <= Xtheor)
             {
                 labelForIntervals.Text += "\nВыборка подчиняется нормальному\n закону распределения!";
@@ -241,6 +272,49 @@ namespace kamparmok
             }
         }
 
+        //раномерное распределение
+        private void buttonUniform_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                Calculate_main();
+                fResult_table.Columns.Add("", "ss");
+                fResult_table.Columns.Add("", "sss");
+                fResult_table.Columns.Add("", "ssss");
+                double P = 1 / Convert.ToDouble(numberOfIntervals);
+                for (int i = 0; i < numberOfIntervals; ++i)
+                {
+                    fResult_table[2, i].Value = Math.Round(P, 4);
+                    fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * (count_all_collumn * count_all_rows);
+                    fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value))
+                    * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
+                }
+                for (int i = 0; i < numberOfIntervals; ++i)
+                {
+                    Xemp += Xemp + Convert.ToDouble(fResult_table[4, i].Value);
+                }
+                double Xtheor = 0;
+                int indexAlpha = checkedListBoxAlpha.SelectedIndex; //берёт индекс последнего нажатого варианта из листа
+                int degressFreedom = numberOfIntervals - 0/*количество расчетов, у нас их нет*/ - 1/*просто -1*/; //число степеней свободы
+                Xtheor = PirsonTable[indexAlpha, degressFreedom];
+                labelForIntervals.Text = "\n\n\nemp " + Xemp + "theor " + Xtheor;
+                if (Xemp <= Xtheor)
+                {
+                    labelForIntervals.Text += "\nВыборка подчиняется нормальному\n закону распределения!";
+                }
+                else
+                {
+                    labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
+            }
+            
+        }
+
+        //нормальное распределение
         private void fCalculation_button_Click(object sender, EventArgs e)
         {
             try
@@ -323,6 +397,20 @@ namespace kamparmok
             catch (Exception ex)
             {
                 MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
+            }
+        }
+
+        //построение графика
+        private void buttonChart_Click_1(object sender, EventArgs e)
+        {
+            Calculate_main();
+            if (fResult_table[0, 0].Value != null)
+            {
+                for (int i = 0; i < numberOfIntervals; ++i)
+                {
+                    chartIntervals.Series[0].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                    //chartIntervals.Series[1].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                }
             }
         }
     }
