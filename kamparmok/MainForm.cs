@@ -88,39 +88,39 @@ namespace kamparmok
             }
         }
 
-        // Функция проверки строки на лишние символы
-        //private bool check_row(ref string row)
-        //{
-        //    // Допустимые символы в файле
-        //    char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', ';' };
-        //    // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
-        //    row = row.Replace(",", ".");
-        //    row = row.Replace(" ", "");
+//        Функция проверки строки на лишние символы
+        private bool check_row(ref string row)
+        {
+            // Допустимые символы в файле
+            char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', ';' };
+            // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
+            //row = row.Replace(",", ".");
+            row = row.Replace(" ", "");
 
-        //    for (int i = 0; i < row.Length; i++)
-        //    {
-        //        bool find_symbol = false;
-        //        foreach (char symbol in possible_char)
-        //        {
-        //            if (row[i] == symbol)
-        //            {
-        //                // Для разделителя нужно проверить наличие идущих двух подряд ; и если ; стоит на первом месте
-        //                if (row[i] == separator)
-        //                {
-        //                    if ((i != row.Length - 1) && (row[i + 1] == separator) || i == 0)
-        //                    {
-        //                        return false;
-        //                    }
-        //                }
-        //                find_symbol = true;
-        //                break;
-        //            }
-        //        }
-        //        if (!find_symbol)
-        //            return false;
-        //    }
-        //    return true;
-        //}
+            for (int i = 0; i < row.Length; i++)
+            {
+                bool find_symbol = false;
+                foreach (char symbol in possible_char)
+                {
+                    if (row[i] == symbol)
+                    {
+                        // Для разделителя нужно проверить наличие идущих двух подряд ; и если ; стоит на первом месте
+                        if (row[i] == separator)
+                        {
+                            if ((i != row.Length - 1) && (row[i + 1] == separator) || i == 0)
+                            {
+                                return false;
+                            }
+                        }
+                        find_symbol = true;
+                        break;
+                    }
+                }
+                if (!find_symbol)
+                    return false;
+            }
+            return true;
+        }
 
         //функция для поиска различных вспомогательных данных
         void Calculate_main()
