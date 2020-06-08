@@ -20,9 +20,9 @@ namespace kamparmok
         private string file_name;// имя файла
         string[] all_rows; // все строки в файле
         int count_all_rows; // количество строк
-        int count_all_collumn; // количество столбцов
+        int count_all_column; // количество столбцов
         //Таблица Пирсона
-        double[,] PirsonTable = new double[6, 10] { { 6.6, 9.2, 11.3, 13.3, 15.1, 16.8, 18.5, 20.1, 21.7, 23.2 }, //0.01
+        double[,] PirsonTable = new double[6, 10] {     { 6.6, 9.2, 11.3, 13.3, 15.1, 16.8, 18.5, 20.1, 21.7, 23.2 }, //0.01
                                                         { 5.0, 7.4, 9.4, 11.1, 12.8, 14.4, 16.0, 17.5, 19.0, 20.5 }, //0.025
                                                         { 3.8, 6.0, 7.8, 9.5, 11.1, 12.6, 14.1, 15.5, 16.9, 18.3 }, //0.05
                                                         { 0.0039, 0.103, 0.352, 0.711, 1.15, 1.64, 2.17, 2.73, 3.33, 3.94 }, //0.095 
@@ -40,6 +40,9 @@ namespace kamparmok
         double sumTheorFrequencies = 0; //сумма теоретических частот
         double Xemp = 0; //Х^2 эмпирический
         double Xtheor = 0; //Х^2 теоретический
+        double stdDev; //среднее стандартное отклонение
+        int indexAlpha; //берёт индекс последнего нажатого варианта из листа
+        int degressFreedom; //число степеней свободы
 
         public MainForm()
         {
@@ -86,57 +89,57 @@ namespace kamparmok
         }
 
         // Функция проверки строки на лишние символы
-        private bool check_row(ref string row)
-        {
-            // Допустимые символы в файле
-            char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', ';' };
-            // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
-            row = row.Replace(",", ".");
-            row = row.Replace(" ", "");
+        //private bool check_row(ref string row)
+        //{
+        //    // Допустимые символы в файле
+        //    char[] possible_char = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '.', ';' };
+        //    // Удалим лишние символы которые могут мешать работе и меняем запятые на точки
+        //    row = row.Replace(",", ".");
+        //    row = row.Replace(" ", "");
 
-            for (int i = 0; i < row.Length; i++)
-            {
-                bool find_symbol = false;
-                foreach (char symbol in possible_char)
-                {
-                    if (row[i] == symbol)
-                    {
-                        // Для разделителя нужно проверить наличие идущих двух подряд ; и если ; стоит на первом месте
-                        if (row[i] == separator)
-                        {
-                            if ((i != row.Length - 1) && (row[i + 1] == separator) || i == 0)
-                            {
-                                return false;
-                            }
-                        }
-                        find_symbol = true;
-                        break;
-                    }
-                }
-                if (!find_symbol)
-                    return false;
-            }
-            return true;
-        }
+        //    for (int i = 0; i < row.Length; i++)
+        //    {
+        //        bool find_symbol = false;
+        //        foreach (char symbol in possible_char)
+        //        {
+        //            if (row[i] == symbol)
+        //            {
+        //                // Для разделителя нужно проверить наличие идущих двух подряд ; и если ; стоит на первом месте
+        //                if (row[i] == separator)
+        //                {
+        //                    if ((i != row.Length - 1) && (row[i + 1] == separator) || i == 0)
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+        //                find_symbol = true;
+        //                break;
+        //            }
+        //        }
+        //        if (!find_symbol)
+        //            return false;
+        //    }
+        //    return true;
+        //}
 
         //функция для поиска различных вспомогательных данных
         void Calculate_main()
         {
-            clear_table(true, false);
+            //clear_table(true, false);
             max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
             min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
 
             for (int i = 0; i < count_all_rows; ++i) //поиск мниимального и максимального значения
             {
-                for (int j = 0; j < count_all_collumn; ++j)
+                for (int j = 0; j < count_all_column; ++j)
                 {
-                    if (Convert.ToDouble(fInput_table[i, j].Value) >= max) //максимум
+                    if (Convert.ToDouble(fInput_table[j, i].Value) >= max) //максимум
                     {
-                        max = Convert.ToDouble(fInput_table[i, j].Value);
+                        max = Convert.ToDouble(fInput_table[j, i].Value);
                     }
-                    if (Convert.ToDouble(fInput_table[i, j].Value) <= min) //минимум
+                    if (Convert.ToDouble(fInput_table[j, i].Value) <= min) //минимум
                     {
-                        min = Convert.ToDouble(fInput_table[i, j].Value);
+                        min = Convert.ToDouble(fInput_table[j, i].Value);
                     }
                 }
             }
@@ -158,12 +161,12 @@ namespace kamparmok
         ///////////////////////////////////КОНЕЦ ФУНКЦИЙ//////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        //открытия файла
         private void fOpen_File_Click(object sender, EventArgs e)
         {
             try
             {
                 clear_table();
-                // диалог открытия файла
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = ".CSV файлы (*.csv)|*.csv|All files(*.*)|*.*";
 
@@ -184,10 +187,10 @@ namespace kamparmok
 
                     all_rows = File.ReadAllLines(file_name);
                     count_all_rows = all_rows.Length;
-                    count_all_collumn = columnReg / count_all_rows + 1;
+                    count_all_column = columnReg / count_all_rows + 1;
 
                     // Создание стобцов
-                    for (int i = 0; i < count_all_collumn; ++i)
+                    for (int i = 0; i < count_all_column; ++i)
                     {
                         fInput_table.Columns.Add("", "");
                     }
@@ -195,10 +198,10 @@ namespace kamparmok
                     //построчное создание и заполнение строк с разделителями
                     for (int i = 0; i < count_all_rows; ++i)
                     {
-                        if (check_row(ref all_rows[i]))
-                        {
+                        //if (check_row(ref all_rows[i]))
+                        //{
                             fInput_table.Rows.Add(all_rows[i].Split(separator));
-                        }
+                        //}
                     }
                     StreamReader.Close();
                 }
@@ -223,52 +226,63 @@ namespace kamparmok
         //биноминальное распределение
         private void fBinominal_button_Click(object sender, EventArgs e)
         {
-            double M = 0;
-            int CountOfCell = count_all_collumn * count_all_rows;
-
-            for (int i = 0; i < count_all_rows; ++i) 
+            try
             {
-                for (int j = 0; j < count_all_collumn; ++j)
+                Calculate_main();
+                double M = 0;
+                int CountOfCell = count_all_column * count_all_rows;
+
+                for (int i = 0; i < count_all_rows; ++i)
                 {
-                    M = M + Convert.ToInt32(fInput_table[i, j].Value);
+                    for (int j = 0; j < count_all_column; ++j)
+                    {
+                        M += Convert.ToDouble(fInput_table[j, i].Value);
+                    }
+                }
+
+                M = Math.Round(M / CountOfCell, 5);
+                double p = M / CountOfCell;
+                double q = 1 - p;
+                double P = 0;
+                BigInteger P1 = 0;
+                //numberOfIntervals = Convert.ToInt32(fCount_interval.Text);
+                fResult_table.Columns.Add("", "ss");
+                fResult_table.Columns.Add("", "sss");
+                fResult_table.Columns.Add("", "ssss");
+                for (int i = 0; i < numberOfIntervals; i++)
+                {
+                    P1 = factorial(CountOfCell) / (factorial(i) * factorial(CountOfCell - i));
+                    P = (double)(P1) * Math.Pow(p, i) * Math.Pow(q, CountOfCell - i);
+                    fResult_table[2, i].Value = Math.Round(P, 4);
+                }
+
+                for (int i = 0; i < numberOfIntervals; i++)
+                {
+                    fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * CountOfCell;
+                    fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
+                }
+
+                for (int i = 0; i < numberOfIntervals; i++)
+                {
+                    Xemp = Xemp + Convert.ToDouble(fResult_table[4, i].Value);
+                }
+
+                label1.Text = Xemp.ToString();
+                int k = numberOfIntervals - 2 - 1;
+                double Xtheor = Pirson(k);
+
+                if (Xemp <= Xtheor)
+                {
+                    labelForIntervals.Text += "\nВыборка подчиняется нормальному\n закону распределения!";
+                }
+                else
+                {
+                    labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
                 }
             }
-
-            M = Math.Round(M / CountOfCell, 5);
-            double p = M / CountOfCell;
-            double q = 1 - p;
-            double P = 0;
-            BigInteger P1 = 0;
-
-            for (int i = 0; i < numberOfIntervals; i++)
+            catch(Exception ex)
             {
-                P1 = factorial(CountOfCell) / (factorial(i) * factorial(CountOfCell - i));
-                P = (double)(P1) * Math.Pow(p, i) * Math.Pow(q, CountOfCell - i);
-                fResult_table[3, i].Value = Math.Round(P, 4);
-            }
-
-            for (int i = 0; i < numberOfIntervals; i++)
-            {
-                fResult_table[4, i].Value = Convert.ToDouble(fResult_table[3, i].Value) * CountOfCell;
-                fResult_table[5, i].Value = Math.Round((Convert.ToDouble(fResult_table[2, i].Value) - Convert.ToDouble(fResult_table[4, i].Value)) * (Convert.ToDouble(fResult_table[2, i].Value) - Convert.ToDouble(fResult_table[4, i].Value)) / Convert.ToDouble(fResult_table[4, i].Value), 4);
-            }
-
-            for (int i = 0; i < numberOfIntervals; i++)
-            {
-                Xemp = Xemp + Convert.ToDouble(fResult_table[5, i].Value);
-            }
-
-            label1.Text = Xemp.ToString();
-            int k = numberOfIntervals - 2 - 1;
-            double Xtheor = Pirson(k);
-
-            if (Xemp <= Xtheor)
-            {
-                labelForIntervals.Text += "\nВыборка подчиняется нормальному\n закону распределения!";
-            }
-            else
-            {
-                labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
+                MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
             }
         }
 
@@ -285,7 +299,7 @@ namespace kamparmok
                 for (int i = 0; i < numberOfIntervals; ++i)
                 {
                     fResult_table[2, i].Value = Math.Round(P, 4);
-                    fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * (count_all_collumn * count_all_rows);
+                    fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * (count_all_column * count_all_rows);
                     fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value))
                     * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
                 }
@@ -314,11 +328,50 @@ namespace kamparmok
             
         }
 
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Csv файлы (*.csv)|*.csv|All files(*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    file_name = saveFileDialog.FileName;
+                    this.Text = saveFileDialog.FileName.ToString();
+                    var wr = new StreamWriter(saveFileDialog.FileName, false, Encoding.GetEncoding(1251));
+                    for (int i = 0; i < fResult_table.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < fResult_table.Columns.Count; j++)
+                        {
+                            wr.Write(fResult_table[j, i].Value);
+                            wr.Write(";");
+                        }
+                        wr.Write("\n");
+                    }
+                    wr.Write("Количество частот: " + ";" + frequencySum +
+                             "\nСреднее значение середин интервалов: " + ";" + middleValue +
+                             "\nСтандартное отклонение: " + ";" + stdDev +
+                             "\nШаг: " + ";" + step +
+                             "\nСумма теор. частот: " + ";" + sumTheorFrequencies +
+                             "\nЧисло степеней свободы: " + ";" + degressFreedom +
+                             "\nЧисло Alpha: " + ";" + indexAlpha +
+                             "\nХ^2 эмперическая: " + ";" + Xemp +
+                             "\nХ^2 теоретическая: " + ";" + Xtheor); 
+
+                    wr.Close();
+                }
+                catch (Exception Situation)
+                {
+                    MessageBox.Show(Situation.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
         //нормальное распределение
         private void fCalculation_button_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 Calculate_main();
                 fResult_table.Columns.Add("", "Частоты"); //третий столбец для частот [2, i]
                 fResult_table.Columns.Add("", "Середины интервалов"); //четвертый столбец для середин интервалов [3, i]
@@ -334,9 +387,9 @@ namespace kamparmok
                     rightBorder = Convert.ToDouble(fResult_table[1, i].Value); //берём правый столбик
                     for (int k = 0; k < count_all_rows; ++k)
                     {
-                        for (int j = 0; j < count_all_collumn; ++j)
+                        for (int j = 0; j < count_all_column; ++j)
                         {   //проверяем по каждому символу входит ли в наш диапозон
-                            if (Convert.ToDouble(fInput_table[k, j].Value) >= leftBorder && Convert.ToDouble(fInput_table[k, j].Value) <= rightBorder)
+                            if (Convert.ToDouble(fInput_table[j, k].Value) >= leftBorder && Convert.ToDouble(fInput_table[j, k].Value) <= rightBorder)
                             {
                                 frequencyCount++;
                                 frequencySum++;
@@ -361,20 +414,20 @@ namespace kamparmok
                 }
                 double[] theorFrequencies = new double[numberOfIntervals]; //теоретические частоты
 
-                double stdDev = Math.Sqrt(sumHelp / (count_all_rows * count_all_collumn)); //стандартное отклонение
+                stdDev = Math.Sqrt(sumHelp / (count_all_rows * count_all_column)); //стандартное отклонение
                 fResult_table.Columns.Add("", "Частоты теоретические"); //создание столбца нормальное распределение
                 for (int i = 0; i < numberOfIntervals; ++i) //расчет норм расп
                 {
                     normDistr[i] = (1 / (Math.Sqrt(2 * 3.14159265) * stdDev)) *
                         Math.Pow(2.71828, (-Math.Pow(middleIntervals[i] - stdDev, 2)) / (2 * Math.Pow(stdDev, 2))); //формула норм распределения
-                    theorFrequencies[i] = normDistr[i] * (count_all_collumn * count_all_rows) * step; //нахождение теоретической частоты
+                    theorFrequencies[i] = normDistr[i] * (count_all_column * count_all_rows) * step; //нахождение теоретической частоты
                     fResult_table[5, i].Value = theorFrequencies[i];
                     sumTheorFrequencies += theorFrequencies[i]; //сумма теоретической частоты
                     Xemp += Math.Pow(frequency[i] - theorFrequencies[i], 2) / theorFrequencies[i]; //рассчёт Хи эмперической
                 }
 
-                int indexAlpha = checkedListBoxAlpha.SelectedIndex; //берёт индекс последнего нажатого варианта из листа
-                int degressFreedom = numberOfIntervals - 2/*количество расчетов, у нас Ср. знач. и Станд. откл.*/ - 1/*просто -1*/; //число степеней свободы
+                indexAlpha = checkedListBoxAlpha.SelectedIndex; //берёт индекс последнего нажатого варианта из листа
+                degressFreedom = numberOfIntervals - 2/*количество расчетов, у нас Ср. знач. и Станд. откл.*/ - 1/*просто -1*/; //число степеней свободы
                 Xtheor = PirsonTable[indexAlpha, degressFreedom]; //рассчёт Хи теоритической
                 labelForIntervals.Text = "Количество частот: " + frequencySum +
                                          "\nСреднее значение середин интервалов: " + middleValue +
@@ -393,11 +446,11 @@ namespace kamparmok
                 {
                     labelForIntervals.Text += "\nОшибка! Выборка не подчиняется нормальному\n закону распределения!";
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Произошла ошибка при рассчетах \n" + ex.Message);
+            //}
         }
 
         //построение графика
@@ -406,10 +459,37 @@ namespace kamparmok
             Calculate_main();
             if (fResult_table[0, 0].Value != null)
             {
-                for (int i = 0; i < numberOfIntervals; ++i)
+                fResult_table.Columns.Add("", "Частоты"); //третий столбец для частот [2, i]
+                fResult_table.Columns.Add("", "Середины интервалов"); //четвертый столбец для середин интервалов [3, i]
+                double[] middleIntervals = new double[numberOfIntervals]; //середины интервалов
+                double[] frequency = new double[numberOfIntervals]; //частоты
+
+
+                for (int i = 0; i < numberOfIntervals; ++i) //рассчёт частот
                 {
-                    chartIntervals.Series[0].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
-                    //chartIntervals.Series[1].Points.AddXY((Convert.ToDouble(fResult_table[1, i].Value) + Convert.ToDouble(fResult_table[0, i].Value)) / 2, i);
+                    frequencyCount = 0; //частота
+                    leftBorder = Convert.ToDouble(fResult_table[0, i].Value); //берём левый столбик
+                    rightBorder = Convert.ToDouble(fResult_table[1, i].Value); //берём правый столбик
+                    for (int k = 0; k < count_all_rows; ++k)
+                    {
+                        for (int j = 0; j < count_all_column; ++j)
+                        {   //проверяем по каждому символу входит ли в наш диапозон
+                            if (Convert.ToDouble(fInput_table[j, k].Value) >= leftBorder && Convert.ToDouble(fInput_table[j, k].Value) <= rightBorder)
+                            {
+                                frequencyCount++;
+                                frequencySum++;
+                            }
+                        }
+                        middleIntervals[i] = (rightBorder + leftBorder) / 2; //рассчёт середин
+                        fResult_table[3, i].Value = middleIntervals[i]; //вывод середин в таблицу
+                        frequency[i] = frequencyCount; // рассчёт эмперических частот
+                        fResult_table[2, i].Value = frequency[i]; //вывод
+                    }
+                }
+            
+                    for (int i = 0; i < numberOfIntervals; ++i)
+                {
+                    chartIntervals.Series[0].Points.AddXY((Convert.ToDouble(fResult_table[3, i].Value)), (Convert.ToDouble(fResult_table[2, i].Value)));
                 }
             }
         }

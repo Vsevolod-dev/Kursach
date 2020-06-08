@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
             this.fResult_table = new System.Windows.Forms.DataGridView();
+            this.fBinominal_button = new System.Windows.Forms.Button();
             this.buttonChart = new System.Windows.Forms.Button();
             this.chartIntervals = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonUniform = new System.Windows.Forms.Button();
@@ -45,13 +46,10 @@
             this.fCount_interval = new System.Windows.Forms.TextBox();
             this.fCalculation_button = new System.Windows.Forms.Button();
             this.fFile_tool_strip = new System.Windows.Forms.ToolStripMenuItem();
-            this.новыйToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fOpen_File = new System.Windows.Forms.ToolStripMenuItem();
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.сохранитьКакToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
-            this.fBinominal_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -69,7 +67,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(79, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(129, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -89,7 +87,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.fCount_interval);
             this.splitContainer1.Panel2.Controls.Add(this.fCalculation_button);
-            this.splitContainer1.Size = new System.Drawing.Size(684, 482);
+            this.splitContainer1.Size = new System.Drawing.Size(634, 482);
             this.splitContainer1.SplitterDistance = 241;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -106,8 +104,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.fResult_table);
-            this.splitContainer2.Size = new System.Drawing.Size(684, 241);
-            this.splitContainer2.SplitterDistance = 328;
+            this.splitContainer2.Size = new System.Drawing.Size(634, 241);
+            this.splitContainer2.SplitterDistance = 304;
             this.splitContainer2.TabIndex = 1;
             // 
             // fInput_table
@@ -116,7 +114,7 @@
             this.fInput_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fInput_table.Location = new System.Drawing.Point(0, 0);
             this.fInput_table.Name = "fInput_table";
-            this.fInput_table.Size = new System.Drawing.Size(328, 241);
+            this.fInput_table.Size = new System.Drawing.Size(304, 241);
             this.fInput_table.TabIndex = 0;
             // 
             // fResult_table
@@ -125,8 +123,18 @@
             this.fResult_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fResult_table.Location = new System.Drawing.Point(0, 0);
             this.fResult_table.Name = "fResult_table";
-            this.fResult_table.Size = new System.Drawing.Size(352, 241);
+            this.fResult_table.Size = new System.Drawing.Size(326, 241);
             this.fResult_table.TabIndex = 0;
+            // 
+            // fBinominal_button
+            // 
+            this.fBinominal_button.Location = new System.Drawing.Point(151, 2);
+            this.fBinominal_button.Name = "fBinominal_button";
+            this.fBinominal_button.Size = new System.Drawing.Size(97, 30);
+            this.fBinominal_button.TabIndex = 17;
+            this.fBinominal_button.Text = "Биноминальное";
+            this.fBinominal_button.UseVisualStyleBackColor = true;
+            this.fBinominal_button.Click += new System.EventHandler(this.fBinominal_button_Click);
             // 
             // buttonChart
             // 
@@ -140,17 +148,18 @@
             // 
             // chartIntervals
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartIntervals.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartIntervals.Legends.Add(legend2);
-            this.chartIntervals.Location = new System.Drawing.Point(3, 130);
+            chartArea7.Name = "ChartArea1";
+            this.chartIntervals.ChartAreas.Add(chartArea7);
+            legend7.Name = "Legend1";
+            this.chartIntervals.Legends.Add(legend7);
+            this.chartIntervals.Location = new System.Drawing.Point(3, 167);
             this.chartIntervals.Name = "chartIntervals";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartIntervals.Series.Add(series2);
-            this.chartIntervals.Size = new System.Drawing.Size(245, 216);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chartIntervals.Series.Add(series7);
+            this.chartIntervals.Size = new System.Drawing.Size(494, 363);
             this.chartIntervals.TabIndex = 15;
             this.chartIntervals.Text = "chart1";
             this.chartIntervals.Click += new System.EventHandler(this.chartIntervals_Click);
@@ -226,20 +235,12 @@
             // fFile_tool_strip
             // 
             this.fFile_tool_strip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.новыйToolStripMenuItem,
             this.fOpen_File,
-            this.сохранитьToolStripMenuItem,
-            this.сохранитьКакToolStripMenuItem});
+            this.сохранитьToolStripMenuItem});
             this.fFile_tool_strip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.fFile_tool_strip.Name = "fFile_tool_strip";
-            this.fFile_tool_strip.Size = new System.Drawing.Size(60, 24);
+            this.fFile_tool_strip.Size = new System.Drawing.Size(110, 24);
             this.fFile_tool_strip.Text = "Файл";
-            // 
-            // новыйToolStripMenuItem
-            // 
-            this.новыйToolStripMenuItem.Name = "новыйToolStripMenuItem";
-            this.новыйToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
-            this.новыйToolStripMenuItem.Text = "Новый";
             // 
             // fOpen_File
             // 
@@ -253,12 +254,7 @@
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            // 
-            // сохранитьКакToolStripMenuItem
-            // 
-            this.сохранитьКакToolStripMenuItem.Name = "сохранитьКакToolStripMenuItem";
-            this.сохранитьКакToolStripMenuItem.Size = new System.Drawing.Size(188, 24);
-            this.сохранитьКакToolStripMenuItem.Text = "Сохранить как";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
@@ -278,19 +274,9 @@
             this.fMain_menu.Location = new System.Drawing.Point(0, 0);
             this.fMain_menu.Name = "fMain_menu";
             this.fMain_menu.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.fMain_menu.Size = new System.Drawing.Size(79, 482);
+            this.fMain_menu.Size = new System.Drawing.Size(129, 482);
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
-            // 
-            // fBinominal_button
-            // 
-            this.fBinominal_button.Location = new System.Drawing.Point(151, 2);
-            this.fBinominal_button.Name = "fBinominal_button";
-            this.fBinominal_button.Size = new System.Drawing.Size(97, 30);
-            this.fBinominal_button.TabIndex = 17;
-            this.fBinominal_button.Text = "Биноминальное";
-            this.fBinominal_button.UseVisualStyleBackColor = true;
-            this.fBinominal_button.Click += new System.EventHandler(this.fBinominal_button_Click);
             // 
             // MainForm
             // 
@@ -330,10 +316,8 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Button fCalculation_button;
         private System.Windows.Forms.ToolStripMenuItem fFile_tool_strip;
-        private System.Windows.Forms.ToolStripMenuItem новыйToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fOpen_File;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem сохранитьКакToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.MenuStrip fMain_menu;
         private System.Windows.Forms.DataGridView fInput_table;
