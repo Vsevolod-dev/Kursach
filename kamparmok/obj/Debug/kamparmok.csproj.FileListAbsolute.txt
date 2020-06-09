@@ -10,7 +10,6 @@ D:\mesk727\Kursach\kamparmok\obj\Debug\kamparmok.pdb
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\bin\Debug\kamparmok.exe.config
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\bin\Debug\kamparmok.exe
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\bin\Debug\kamparmok.pdb
-F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.csprojAssemblyReference.cache
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.Properties.Resources.resources
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.csproj.GenerateResource.cache
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.csproj.CoreCompileInputs.cache
