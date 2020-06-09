@@ -120,8 +120,10 @@ namespace kamparmok
                     }
                 }
                 if (!find_symbol)
+                {
                     countOfRow++;
                     return false;
+                }
             }
             return true;
         }
@@ -197,7 +199,10 @@ namespace kamparmok
                     Regex reg = new Regex(";"); //разделитель между ячейками (регулярные выражения)
                     MatchCollection count = reg.Matches(full_text); //поиск reg(;) в full_text и записывает их кол-во в переменную
                     int columnReg = Convert.ToInt32(count.Count.ToString()); //перевод count в int'овый вариант
-
+                    if (columnReg == 0)
+                    {
+                        throw new Exception("Не удалось найти разделитель в файле");
+                    }
                     all_rows = File.ReadAllLines(file_name);
                     count_all_rows = all_rows.Length;
                     count_all_column = columnReg / count_all_rows + 1;
@@ -226,7 +231,7 @@ namespace kamparmok
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка при открытии файла");
+                MessageBox.Show("При открытии файла произошла следующая ошибка \n"+ ex.Message );
             }
         }
 
