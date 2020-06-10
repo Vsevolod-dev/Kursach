@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
             this.fResult_table = new System.Windows.Forms.DataGridView();
+            this.clearChart = new System.Windows.Forms.Button();
             this.clear_result_table = new System.Windows.Forms.Button();
             this.clear_input_table = new System.Windows.Forms.Button();
             this.fBinominal_button = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
-            this.clearChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,7 +96,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.fCalculation_button);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint_1);
             this.splitContainer1.Size = new System.Drawing.Size(979, 675);
-            this.splitContainer1.SplitterDistance = 336;
+            this.splitContainer1.SplitterDistance = 335;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -112,7 +112,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.fResult_table);
-            this.splitContainer2.Size = new System.Drawing.Size(979, 336);
+            this.splitContainer2.Size = new System.Drawing.Size(979, 335);
             this.splitContainer2.SplitterDistance = 469;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -122,8 +122,9 @@
             this.fInput_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fInput_table.Location = new System.Drawing.Point(0, 0);
             this.fInput_table.Name = "fInput_table";
-            this.fInput_table.Size = new System.Drawing.Size(469, 336);
+            this.fInput_table.Size = new System.Drawing.Size(469, 335);
             this.fInput_table.TabIndex = 0;
+            this.fInput_table.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.fInput_table_CellContentClick);
             // 
             // fResult_table
             // 
@@ -131,12 +132,23 @@
             this.fResult_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fResult_table.Location = new System.Drawing.Point(0, 0);
             this.fResult_table.Name = "fResult_table";
-            this.fResult_table.Size = new System.Drawing.Size(506, 336);
+            this.fResult_table.Size = new System.Drawing.Size(506, 335);
             this.fResult_table.TabIndex = 0;
+            // 
+            // clearChart
+            // 
+            this.clearChart.Location = new System.Drawing.Point(499, 224);
+            this.clearChart.Name = "clearChart";
+            this.clearChart.Size = new System.Drawing.Size(114, 51);
+            this.clearChart.TabIndex = 20;
+            this.clearChart.Text = "Очистить график";
+            this.clearChart.UseVisualStyleBackColor = true;
+            this.clearChart.Click += new System.EventHandler(this.clearChart_Click);
             // 
             // clear_result_table
             // 
-            this.clear_result_table.Location = new System.Drawing.Point(866, 12);
+            this.clear_result_table.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clear_result_table.Location = new System.Drawing.Point(110, 2);
             this.clear_result_table.Name = "clear_result_table";
             this.clear_result_table.Size = new System.Drawing.Size(101, 70);
             this.clear_result_table.TabIndex = 19;
@@ -146,7 +158,8 @@
             // 
             // clear_input_table
             // 
-            this.clear_input_table.Location = new System.Drawing.Point(759, 12);
+            this.clear_input_table.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clear_input_table.Location = new System.Drawing.Point(3, 2);
             this.clear_input_table.Name = "clear_input_table";
             this.clear_input_table.Size = new System.Drawing.Size(101, 70);
             this.clear_input_table.TabIndex = 18;
@@ -156,17 +169,18 @@
             // 
             // fBinominal_button
             // 
-            this.fBinominal_button.Location = new System.Drawing.Point(151, 2);
+            this.fBinominal_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fBinominal_button.Location = new System.Drawing.Point(826, 61);
             this.fBinominal_button.Name = "fBinominal_button";
-            this.fBinominal_button.Size = new System.Drawing.Size(97, 30);
+            this.fBinominal_button.Size = new System.Drawing.Size(141, 53);
             this.fBinominal_button.TabIndex = 17;
-            this.fBinominal_button.Text = "Биноминальное";
+            this.fBinominal_button.Text = "Биноминальное распределение";
             this.fBinominal_button.UseVisualStyleBackColor = true;
             this.fBinominal_button.Click += new System.EventHandler(this.fBinominal_button_Click);
             // 
             // buttonChart
             // 
-            this.buttonChart.Location = new System.Drawing.Point(134, 78);
+            this.buttonChart.Location = new System.Drawing.Point(499, 167);
             this.buttonChart.Name = "buttonChart";
             this.buttonChart.Size = new System.Drawing.Size(114, 51);
             this.buttonChart.TabIndex = 16;
@@ -176,17 +190,19 @@
             // 
             // chartIntervals
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartIntervals.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartIntervals.Legends.Add(legend3);
+            this.chartIntervals.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            chartArea1.Name = "ChartArea1";
+            this.chartIntervals.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartIntervals.Legends.Add(legend1);
             this.chartIntervals.Location = new System.Drawing.Point(3, 167);
             this.chartIntervals.Name = "chartIntervals";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartIntervals.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartIntervals.Series.Add(series1);
             this.chartIntervals.Size = new System.Drawing.Size(494, 363);
             this.chartIntervals.TabIndex = 15;
             this.chartIntervals.Text = "chart1";
@@ -194,24 +210,26 @@
             // 
             // buttonUniform
             // 
-            this.buttonUniform.Location = new System.Drawing.Point(3, 83);
+            this.buttonUniform.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUniform.Location = new System.Drawing.Point(826, 120);
             this.buttonUniform.Name = "buttonUniform";
-            this.buttonUniform.Size = new System.Drawing.Size(125, 41);
+            this.buttonUniform.Size = new System.Drawing.Size(141, 53);
             this.buttonUniform.TabIndex = 14;
-            this.buttonUniform.Text = "Равномерное";
+            this.buttonUniform.Text = "Равномерное распределение";
             this.buttonUniform.UseVisualStyleBackColor = true;
             this.buttonUniform.Click += new System.EventHandler(this.buttonUniform_Click_1);
             // 
             // labelForIntervals
             // 
             this.labelForIntervals.AutoSize = true;
-            this.labelForIntervals.Location = new System.Drawing.Point(427, 12);
+            this.labelForIntervals.Location = new System.Drawing.Point(619, 214);
             this.labelForIntervals.Name = "labelForIntervals";
             this.labelForIntervals.Size = new System.Drawing.Size(0, 20);
             this.labelForIntervals.TabIndex = 13;
             // 
             // checkedListBoxAlpha
             // 
+            this.checkedListBoxAlpha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxAlpha.FormattingEnabled = true;
             this.checkedListBoxAlpha.Items.AddRange(new object[] {
             "0,01",
@@ -220,15 +238,16 @@
             "0,095",
             "0,0975",
             "0,099"});
-            this.checkedListBoxAlpha.Location = new System.Drawing.Point(255, 25);
+            this.checkedListBoxAlpha.Location = new System.Drawing.Point(623, 81);
             this.checkedListBoxAlpha.Name = "checkedListBoxAlpha";
             this.checkedListBoxAlpha.Size = new System.Drawing.Size(99, 130);
             this.checkedListBoxAlpha.TabIndex = 12;
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(251, 5);
+            this.label2.Location = new System.Drawing.Point(619, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(171, 20);
             this.label2.TabIndex = 3;
@@ -236,8 +255,9 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 29);
+            this.label1.Location = new System.Drawing.Point(619, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(195, 20);
             this.label1.TabIndex = 2;
@@ -245,18 +265,21 @@
             // 
             // fCount_interval
             // 
-            this.fCount_interval.Location = new System.Drawing.Point(33, 51);
+            this.fCount_interval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fCount_interval.Location = new System.Drawing.Point(623, 25);
             this.fCount_interval.Name = "fCount_interval";
             this.fCount_interval.Size = new System.Drawing.Size(184, 26);
             this.fCount_interval.TabIndex = 1;
             // 
             // fCalculation_button
             // 
-            this.fCalculation_button.Location = new System.Drawing.Point(3, 2);
+            this.fCalculation_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fCalculation_button.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.fCalculation_button.Location = new System.Drawing.Point(826, 5);
             this.fCalculation_button.Name = "fCalculation_button";
-            this.fCalculation_button.Size = new System.Drawing.Size(141, 30);
+            this.fCalculation_button.Size = new System.Drawing.Size(141, 53);
             this.fCalculation_button.TabIndex = 0;
-            this.fCalculation_button.Text = "Рассчитать";
+            this.fCalculation_button.Text = "Нормальное распределение";
             this.fCalculation_button.UseVisualStyleBackColor = true;
             this.fCalculation_button.Click += new System.EventHandler(this.fCalculation_button_Click);
             // 
@@ -306,16 +329,6 @@
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
             // 
-            // clearChart
-            // 
-            this.clearChart.Location = new System.Drawing.Point(527, 25);
-            this.clearChart.Name = "clearChart";
-            this.clearChart.Size = new System.Drawing.Size(107, 52);
-            this.clearChart.TabIndex = 20;
-            this.clearChart.Text = "Очистить график";
-            this.clearChart.UseVisualStyleBackColor = true;
-            this.clearChart.Click += new System.EventHandler(this.clearChart_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -324,7 +337,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.fMain_menu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.fMain_menu;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";

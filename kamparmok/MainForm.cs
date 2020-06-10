@@ -268,10 +268,9 @@ namespace kamparmok
                 double q = 1 - p;
                 double P = 0;
                 BigInteger P1 = 0;
-                //numberOfIntervals = Convert.ToInt32(fCount_interval.Text);
-                fResult_table.Columns.Add("", "ss");
-                fResult_table.Columns.Add("", "sss");
-                fResult_table.Columns.Add("", "ssss");
+                fResult_table.Columns.Add("", "");//2
+                fResult_table.Columns.Add("", "");//3
+                fResult_table.Columns.Add("", "");//4
                 for (int i = 0; i < numberOfIntervals; i++)
                 {
                     P1 = factorial(CountOfCell) / (factorial(i) * factorial(CountOfCell - i));
@@ -319,16 +318,17 @@ namespace kamparmok
                 fResult_table.Rows.Clear();
                 fResult_table.Columns.Clear();
                 Calculate_main();
-                fResult_table.Columns.Add("", "ss");
-                fResult_table.Columns.Add("", "sss");
-                fResult_table.Columns.Add("", "ssss");
+                double[] ss = new double[numberOfIntervals];
+                double[] sss = new double[numberOfIntervals];
+                double[] ssss = new double[numberOfIntervals];
+                fResult_table.Columns.Add("", "");//2
                 double P = 1 / Convert.ToDouble(numberOfIntervals);
                 for (int i = 0; i < numberOfIntervals; ++i)
                 {
-                    fResult_table[2, i].Value = Math.Round(P, 4);
-                    fResult_table[3, i].Value = Convert.ToDouble(fResult_table[2, i].Value) * (count_all_column * count_all_rows);
-                    fResult_table[4, i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value))
-                    * (Convert.ToDouble(fResult_table[1, i].Value) - Convert.ToDouble(fResult_table[3, i].Value)) / Convert.ToDouble(fResult_table[3, i].Value), 4);
+                    ss[i] = Math.Round(P, 4);
+                    sss[i] = ss[i] * (count_all_column * count_all_rows);
+                    fResult_table[2,i].Value = Math.Round((Convert.ToDouble(fResult_table[1, i].Value) - sss[i])
+                    * (Convert.ToDouble(fResult_table[1, i].Value) - sss[i]) / sss[i], 4);
                 }
                 for (int i = 0; i < numberOfIntervals; ++i)
                 {
@@ -423,6 +423,11 @@ namespace kamparmok
         private void clearChart_Click(object sender, EventArgs e)
         {
             chartIntervals.Series[0].Points.Clear();
+        }
+
+        private void fInput_table_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         //нормальное распределение
