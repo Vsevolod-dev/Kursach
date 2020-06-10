@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.fInput_table = new System.Windows.Forms.DataGridView();
             this.fResult_table = new System.Windows.Forms.DataGridView();
+            this.clear_result_table = new System.Windows.Forms.Button();
+            this.clear_input_table = new System.Windows.Forms.Button();
             this.fBinominal_button = new System.Windows.Forms.Button();
             this.buttonChart = new System.Windows.Forms.Button();
             this.chartIntervals = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -50,8 +52,7 @@
             this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fMain_menu = new System.Windows.Forms.MenuStrip();
-            this.clear_input_table = new System.Windows.Forms.Button();
-            this.clear_result_table = new System.Windows.Forms.Button();
+            this.clearChart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,6 +81,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AllowDrop = true;
+            this.splitContainer1.Panel2.Controls.Add(this.clearChart);
             this.splitContainer1.Panel2.Controls.Add(this.clear_result_table);
             this.splitContainer1.Panel2.Controls.Add(this.clear_input_table);
             this.splitContainer1.Panel2.Controls.Add(this.fBinominal_button);
@@ -94,7 +96,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.fCalculation_button);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint_1);
             this.splitContainer1.Size = new System.Drawing.Size(979, 675);
-            this.splitContainer1.SplitterDistance = 337;
+            this.splitContainer1.SplitterDistance = 336;
             this.splitContainer1.TabIndex = 1;
             // 
             // splitContainer2
@@ -110,7 +112,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.fResult_table);
-            this.splitContainer2.Size = new System.Drawing.Size(979, 337);
+            this.splitContainer2.Size = new System.Drawing.Size(979, 336);
             this.splitContainer2.SplitterDistance = 469;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -120,7 +122,7 @@
             this.fInput_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fInput_table.Location = new System.Drawing.Point(0, 0);
             this.fInput_table.Name = "fInput_table";
-            this.fInput_table.Size = new System.Drawing.Size(469, 337);
+            this.fInput_table.Size = new System.Drawing.Size(469, 336);
             this.fInput_table.TabIndex = 0;
             // 
             // fResult_table
@@ -129,8 +131,28 @@
             this.fResult_table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fResult_table.Location = new System.Drawing.Point(0, 0);
             this.fResult_table.Name = "fResult_table";
-            this.fResult_table.Size = new System.Drawing.Size(506, 337);
+            this.fResult_table.Size = new System.Drawing.Size(506, 336);
             this.fResult_table.TabIndex = 0;
+            // 
+            // clear_result_table
+            // 
+            this.clear_result_table.Location = new System.Drawing.Point(866, 12);
+            this.clear_result_table.Name = "clear_result_table";
+            this.clear_result_table.Size = new System.Drawing.Size(101, 70);
+            this.clear_result_table.TabIndex = 19;
+            this.clear_result_table.Text = "Очистить вторую таблицу";
+            this.clear_result_table.UseVisualStyleBackColor = true;
+            this.clear_result_table.Click += new System.EventHandler(this.Clear_result_table_Click_1);
+            // 
+            // clear_input_table
+            // 
+            this.clear_input_table.Location = new System.Drawing.Point(759, 12);
+            this.clear_input_table.Name = "clear_input_table";
+            this.clear_input_table.Size = new System.Drawing.Size(101, 70);
+            this.clear_input_table.TabIndex = 18;
+            this.clear_input_table.Text = "Очистить первую таблицу";
+            this.clear_input_table.UseVisualStyleBackColor = true;
+            this.clear_input_table.Click += new System.EventHandler(this.Clear_input_table_Click);
             // 
             // fBinominal_button
             // 
@@ -154,17 +176,17 @@
             // 
             // chartIntervals
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartIntervals.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartIntervals.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.chartIntervals.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartIntervals.Legends.Add(legend3);
             this.chartIntervals.Location = new System.Drawing.Point(3, 167);
             this.chartIntervals.Name = "chartIntervals";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartIntervals.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartIntervals.Series.Add(series3);
             this.chartIntervals.Size = new System.Drawing.Size(494, 363);
             this.chartIntervals.TabIndex = 15;
             this.chartIntervals.Text = "chart1";
@@ -198,7 +220,7 @@
             "0,095",
             "0,0975",
             "0,099"});
-            this.checkedListBoxAlpha.Location = new System.Drawing.Point(255, 29);
+            this.checkedListBoxAlpha.Location = new System.Drawing.Point(255, 25);
             this.checkedListBoxAlpha.Name = "checkedListBoxAlpha";
             this.checkedListBoxAlpha.Size = new System.Drawing.Size(99, 130);
             this.checkedListBoxAlpha.TabIndex = 12;
@@ -251,14 +273,14 @@
             // fOpen_File
             // 
             this.fOpen_File.Name = "fOpen_File";
-            this.fOpen_File.Size = new System.Drawing.Size(180, 24);
+            this.fOpen_File.Size = new System.Drawing.Size(159, 24);
             this.fOpen_File.Text = "Открыть";
             this.fOpen_File.Click += new System.EventHandler(this.fOpen_File_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(159, 24);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -284,25 +306,15 @@
             this.fMain_menu.TabIndex = 0;
             this.fMain_menu.Text = "main_menu";
             // 
-            // clear_input_table
+            // clearChart
             // 
-            this.clear_input_table.Location = new System.Drawing.Point(759, 12);
-            this.clear_input_table.Name = "clear_input_table";
-            this.clear_input_table.Size = new System.Drawing.Size(101, 70);
-            this.clear_input_table.TabIndex = 18;
-            this.clear_input_table.Text = "Отчистить первую таблицу";
-            this.clear_input_table.UseVisualStyleBackColor = true;
-            this.clear_input_table.Click += new System.EventHandler(this.Clear_input_table_Click);
-            // 
-            // clear_result_table
-            // 
-            this.clear_result_table.Location = new System.Drawing.Point(866, 12);
-            this.clear_result_table.Name = "clear_result_table";
-            this.clear_result_table.Size = new System.Drawing.Size(101, 70);
-            this.clear_result_table.TabIndex = 19;
-            this.clear_result_table.Text = "Отчистить вторую таблицу";
-            this.clear_result_table.UseVisualStyleBackColor = true;
-            this.clear_result_table.Click += new System.EventHandler(this.Clear_result_table_Click_1);
+            this.clearChart.Location = new System.Drawing.Point(527, 25);
+            this.clearChart.Name = "clearChart";
+            this.clearChart.Size = new System.Drawing.Size(107, 52);
+            this.clearChart.TabIndex = 20;
+            this.clearChart.Text = "Очистить график";
+            this.clearChart.UseVisualStyleBackColor = true;
+            this.clearChart.Click += new System.EventHandler(this.clearChart_Click);
             // 
             // MainForm
             // 
@@ -359,5 +371,6 @@
         private System.Windows.Forms.Button fBinominal_button;
         private System.Windows.Forms.Button clear_result_table;
         private System.Windows.Forms.Button clear_input_table;
+        private System.Windows.Forms.Button clearChart;
     }
 }

@@ -26,3 +26,4 @@ D:\Kursach\kamparmok\obj\Debug\kamparmok.pdb
 D:\Kursach\kamparmok\obj\Debug\kamparmok.MainForm.resources
 D:\mesk727\Kursach\kamparmok\obj\Debug\kamparmok.MainForm.resources
 F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.MainForm.resources
+F:\6 семестр\(Erwin. Самсонова-Ивашковская) Инструм. средства ифнормац. систем\КУРСАЧ\kamparmok\Kursach\kamparmok\obj\Debug\kamparmok.csprojAssemblyReference.cache

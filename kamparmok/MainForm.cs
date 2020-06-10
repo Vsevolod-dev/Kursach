@@ -114,7 +114,6 @@ namespace kamparmok
                                 return false;
                             }
                         }
-                        countOfRow++;
                         find_symbol = true;
                         break;
                     }
@@ -207,7 +206,7 @@ namespace kamparmok
                     count_all_rows = all_rows.Length;
                     count_all_column = columnReg / count_all_rows + 1;
 
-                    // Создание стобцов
+                    // Создание стобцов     тут норм
                     for (int i = 0; i < count_all_column; ++i)
                     {
                         fInput_table.Columns.Add("", "");
@@ -222,7 +221,7 @@ namespace kamparmok
                         }
                     }
 
-                    //count_all_rows = all_rows.Length - countOfRow;
+                    count_all_rows = all_rows.Length - countOfRow;
                     //count_all_column = columnReg / count_all_rows + 1;
 
                     StreamReader.Close();
@@ -421,6 +420,11 @@ namespace kamparmok
             fResult_table.Columns.Clear();
         }
 
+        private void clearChart_Click(object sender, EventArgs e)
+        {
+            chartIntervals.Series[0].Points.Clear();
+        }
+
         //нормальное распределение
         private void fCalculation_button_Click(object sender, EventArgs e)
         {
@@ -527,8 +531,8 @@ namespace kamparmok
         //построение графика
         private void buttonChart_Click_1(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 fResult_table.Rows.Clear();
                 fResult_table.Columns.Clear();
                 Calculate_main();
@@ -572,11 +576,11 @@ namespace kamparmok
                 rightBorder = 0; //границы интервалов
                 frequencyCount = 0; //счётчик частот
                 frequencySum = 0; //сумма частот
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Произошла ошибка при рассчетах \n");
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Произошла ошибка при рассчетах \n");
+            //}
         }
     }
 }
