@@ -130,9 +130,15 @@ namespace kamparmok
         //функция для поиска различных вспомогательных данных
         void Calculate_main()
         {
-            max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
-            min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
-
+            try
+            {
+                max = Convert.ToDouble(fInput_table[0, 0].Value); //минимальное значение в таблице
+                min = Convert.ToDouble(fInput_table[0, 0].Value); //максимальное значение в таблице
+            }
+            catch
+            {
+                MessageBox.Show("Для начала откройте файл!");
+            }
             for (int i = 0; i < count_all_rows; ++i) //поиск мниимального и максимального значения
             {
                 for (int j = 0; j < count_all_column; ++j)
@@ -149,7 +155,14 @@ namespace kamparmok
             }
 
             rangeOfVariation = max - min; //размах вариации
-            numberOfIntervals = Convert.ToInt32(fCount_interval.Text); //количество интервалов
+            try
+            {
+                numberOfIntervals = Convert.ToInt32(fCount_interval.Text); //количество интервалов
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Введите количество интервалов!");
+            }
             step = rangeOfVariation / numberOfIntervals; //длина интервала
 
             fResult_table.Columns.Add("", "Интервал"); //левый интервал [0, i]
@@ -433,8 +446,8 @@ namespace kamparmok
         //нормальное распределение
         private void fCalculation_button_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
             fResult_table.Rows.Clear();
             fResult_table.Columns.Clear();
             Calculate_main();
@@ -526,11 +539,11 @@ namespace kamparmok
             stdDev = 0; //среднее стандартное отклонение
             indexAlpha = 0; //берёт индекс последнего нажатого варианта из листа
             degressFreedom = 0; //число степеней свободы
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Произошла ошибка при рассчетах \n");
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при рассчетах \n");
+            }
         }
 
         //построение графика

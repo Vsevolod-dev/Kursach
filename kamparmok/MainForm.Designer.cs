@@ -137,7 +137,7 @@
             // 
             // clearChart
             // 
-            this.clearChart.Location = new System.Drawing.Point(499, 224);
+            this.clearChart.Location = new System.Drawing.Point(425, 135);
             this.clearChart.Name = "clearChart";
             this.clearChart.Size = new System.Drawing.Size(114, 51);
             this.clearChart.TabIndex = 20;
@@ -180,7 +180,7 @@
             // 
             // buttonChart
             // 
-            this.buttonChart.Location = new System.Drawing.Point(499, 167);
+            this.buttonChart.Location = new System.Drawing.Point(425, 78);
             this.buttonChart.Name = "buttonChart";
             this.buttonChart.Size = new System.Drawing.Size(114, 51);
             this.buttonChart.TabIndex = 16;
@@ -196,14 +196,14 @@
             this.chartIntervals.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartIntervals.Legends.Add(legend1);
-            this.chartIntervals.Location = new System.Drawing.Point(3, 167);
+            this.chartIntervals.Location = new System.Drawing.Point(3, 81);
             this.chartIntervals.Name = "chartIntervals";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartIntervals.Series.Add(series1);
-            this.chartIntervals.Size = new System.Drawing.Size(494, 363);
+            this.chartIntervals.Size = new System.Drawing.Size(416, 261);
             this.chartIntervals.TabIndex = 15;
             this.chartIntervals.Text = "chart1";
             this.chartIntervals.Click += new System.EventHandler(this.chartIntervals_Click);
